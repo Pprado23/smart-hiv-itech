@@ -3,7 +3,7 @@ ANCCDS : Validation Results
 
 err = 468, warn = 2877, info = 74
 IG Publisher Version: 1.6.6
-Generated Tue Apr 30 19:28:44 UTC 2024. FHIR version 4.0.1 for who.fhir.anc-cds#0.3.0 (canonical = http://fhir.org/guides/who/anc-cds)
+Generated Tue Apr 30 19:54:09 UTC 2024. FHIR version 4.0.1 for who.fhir.anc-cds#0.3.0 (canonical = http://fhir.org/guides/who/anc-cds)
  Build Errors : 1396 / 16 / 0
  /github/workspace/input/anc-cds : 0 / 2 / 1
  /github/workspace/input/resources/library/library-fhircommon : 1 / 1 / 1
