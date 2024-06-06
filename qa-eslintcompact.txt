@@ -25,17 +25,17 @@ Generic: line 0, col 0, Error - Unable to find ImplementationGuide.definition.re
 Generic: line 0, col 0, Warning - Unable to find ImplementationGuide.definition.resource.description for the resource Library/hivindicatorcommon.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list. (INVARIANT)
 Generic: line 0, col 0, Error - Unable to find ImplementationGuide.definition.resource.name for the resource Library/whocommon.  Name is mandatory if it cannot be inferred from the resource to allow proper population of the artifact list. (REQUIRED)
 Generic: line 0, col 0, Warning - Unable to find ImplementationGuide.definition.resource.description for the resource Library/whocommon.  Descriptions are strongly encouraged if they cannot be inferred from the resource to allow proper population of the artifact list. (INVARIANT)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 130 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 129 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 132 (STRUCTURE)
 Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 127 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 130 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 132 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 135 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 128 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 132 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 133 (STRUCTURE)
 Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 129 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 129 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 130 (STRUCTURE)
 Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 133 (STRUCTURE)
-Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 133 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 130 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 128 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 135 (STRUCTURE)
+Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 132 (STRUCTURE)
 Generic: line 0, col 0, Error - unexpected non-end of element null::div  at line 245 column 130 (STRUCTURE)
 Generic: line 0, col 0, Error - The link 'license.html' for "License" cannot be resolved (NOTFOUND)
 Generic: line 0, col 0, Error - The link 'license.html' for "License" cannot be resolved (NOTFOUND)
@@ -4806,4 +4806,4 @@ Generic: line 0, col 0, Warning - The HTML fragment 'globals-table.xhtml' is not
 /github/workspace/input/vocabulary/valueset/valueset-hiv-prv-de3.json: line 0, col 0, Error - URL Mismatch http://fhir.org/guides/who/anc-cds/ValueSet/hiv-prv-de3 vs http://fhir.org/guides/itech-uw/ValueSet/hiv-prv-de3 (BUSINESSRULE)
 
 err = 468, warn = 2877, info = 74
-IG Publisher Version: 1.6.7
+IG Publisher Version: 1.6.10
