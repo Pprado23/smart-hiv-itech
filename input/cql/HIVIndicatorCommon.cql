@@ -1,6 +1,9 @@
 library HIVIndicatorCommon version '0.01' 
 
+
 using FHIR version '4.0.1'
+
+
 
 
 codesystem "ObservationValue": 'http://terminology.hl7.org/CodeSystem/observation-value'
@@ -260,19 +263,21 @@ define "By Administrative Gender Stratifier":
     and C.onset during "Measurement Period")
   )
 
+/*@triggeredBy Encounter with location = community level testing*/
 define "Community_testing":
   exists([Observation] O
-  //with [O.encounter -> Encounter] E
-     // such that (E.location in "Community-level testing")
+    with [Encounter] E
+      such that O.encounter.references(E) and E.location.physicalType in  "Community-level testing" 
   where (O.status in { 'final', 'amended' }
   and O.code in "HIVtesttypeCodes"
   and O.issued during "Measurement Period")
   )
 
+
 define "Facility_testing":
   exists([Observation] O
-  //with [O.encounter -> Encounter] E
-      //such that (E.location in "Facility-level testing")
+    with [Encounter] E
+      such that O.encounter.references(E) and E.location.physicalType in  "Facility-level testing"
   where (O.status in { 'final', 'amended' }
   and O.code in "HIVtesttypeCodes"
   and O.issued during "Measurement Period")

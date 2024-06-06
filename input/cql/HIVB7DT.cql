@@ -58,8 +58,9 @@ define "Report as HIV-negative":
   and "Age_greater_than_18_months")
 
 /* Output observation as HIV negative */
+/*@triggeredBy Assay 1 */
 
-define "Continue with performing HIV 'Assay 2'":
+define "Should Continue with Performing HIV Assay 2":
   [Observation] O
   //triggeredBy ~ order for Assay 1
   with [O.basedOn -> ServiceRequest] SR
