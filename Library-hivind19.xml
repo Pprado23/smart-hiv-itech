@@ -484,9 +484,89 @@
   </wstxns12:contexts>
   <wstxns13:statements xmlns:wstxns13="urn:hl7-org:elm:r1" wstxns13:type="Library$Statements">
     <wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="227" locator="40:1-41:57" name="numerator" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="AnyTrue" localId="2" locator="41:5-41:57">
-          <wstxns13:source wstxns13:type="ExpressionRef" localId="228" locator="41:13-41:56" name="HIV Positive during measurement period" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="227" locator="40:1-47:2" name="numerator" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="Or" localId="228" locator="41:5-47:2">
+          <wstxns13:operand>
+            <wstxns13:operand wstxns13:type="Exists" localId="229" locator="41:5-42:43">
+              <wstxns13:operand wstxns13:type="Query" localId="246" locator="41:11-42:43">
+                <wstxns13:source>
+                  <wstxns13:source wstxns13:type="AliasedQuerySource" localId="230" locator="41:12-41:41" alias="C">
+                    <wstxns13:expression wstxns13:type="ExpressionRef" localId="231" locator="41:12-41:39" name="HIV Positive Condition" libraryName="HIC"/>
+                  </wstxns13:source>
+                </wstxns13:source>
+                <wstxns13:where wstxns13:type="IncludedIn" localId="235" locator="42:2-42:42">
+                  <wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="FunctionRef" localId="237" name="ToInterval" libraryName="FHIRHelpers">
+                      <wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="As" localId="236" asType="{http://hl7.org/fhir}Period">
+                          <wstxns13:operand wstxns13:type="Property" localId="233" locator="42:8-42:14" path="onset" scope="C"/>
+                        </wstxns13:operand>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="Interval" localId="238">
+                      <wstxns13:low wstxns13:type="ToDateTime">
+                        <wstxns13:operand wstxns13:type="Property" localId="239" path="low">
+                          <wstxns13:source wstxns13:type="ParameterRef" localId="234" locator="42:23-42:42" name="Measurement Period"/>
+                        </wstxns13:operand>
+                      </wstxns13:low>
+                      <wstxns13:lowClosedExpression wstxns13:type="Property" localId="241" path="lowClosed">
+                        <wstxns13:source wstxns13:type="ParameterRef" localId="234" locator="42:23-42:42" name="Measurement Period"/>
+                      </wstxns13:lowClosedExpression>
+                      <wstxns13:high wstxns13:type="ToDateTime">
+                        <wstxns13:operand wstxns13:type="Property" localId="242" path="high">
+                          <wstxns13:source wstxns13:type="ParameterRef" localId="234" locator="42:23-42:42" name="Measurement Period"/>
+                        </wstxns13:operand>
+                      </wstxns13:high>
+                      <wstxns13:highClosedExpression wstxns13:type="Property" localId="244" path="highClosed">
+                        <wstxns13:source wstxns13:type="ParameterRef" localId="234" locator="42:23-42:42" name="Measurement Period"/>
+                      </wstxns13:highClosedExpression>
+                    </wstxns13:operand>
+                  </wstxns13:operand>
+                </wstxns13:where>
+              </wstxns13:operand>
+            </wstxns13:operand>
+            <wstxns13:operand wstxns13:type="Exists" localId="247" locator="44:2-47:2">
+              <wstxns13:operand wstxns13:type="Query" localId="265" locator="44:8-47:2">
+                <wstxns13:source>
+                  <wstxns13:source wstxns13:type="AliasedQuerySource" localId="248" locator="44:9-44:40" alias="O">
+                    <wstxns13:expression wstxns13:type="ExpressionRef" localId="249" locator="44:9-44:38" name="HIV Positive Observation" libraryName="HIC"/>
+                  </wstxns13:source>
+                </wstxns13:source>
+                <wstxns13:where wstxns13:type="And" localId="250" locator="45:2-46:50">
+                  <wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="Before" localId="255" locator="45:9-45:51">
+                      <wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="FunctionRef" localId="256" name="ToDateTime" libraryName="FHIRHelpers">
+                          <wstxns13:operand>
+                            <wstxns13:operand wstxns13:type="Property" localId="252" locator="45:9-45:16" path="issued" scope="O"/>
+                          </wstxns13:operand>
+                        </wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="ToDateTime">
+                          <wstxns13:operand wstxns13:type="End" localId="253" locator="45:25-45:51">
+                            <wstxns13:operand wstxns13:type="ParameterRef" localId="254" locator="45:32-45:51" name="Measurement Period"/>
+                          </wstxns13:operand>
+                        </wstxns13:operand>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="After" localId="262" locator="46:6-46:49">
+                      <wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="FunctionRef" localId="263" name="ToDateTime" libraryName="FHIRHelpers">
+                          <wstxns13:operand>
+                            <wstxns13:operand wstxns13:type="Property" localId="259" locator="46:6-46:13" path="issued" scope="O"/>
+                          </wstxns13:operand>
+                        </wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="ToDateTime">
+                          <wstxns13:operand wstxns13:type="Start" localId="260" locator="46:21-46:49">
+                            <wstxns13:operand wstxns13:type="ParameterRef" localId="261" locator="46:30-46:49" name="Measurement Period"/>
+                          </wstxns13:operand>
+                        </wstxns13:operand>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                  </wstxns13:operand>
+                </wstxns13:where>
+              </wstxns13:operand>
+            </wstxns13:operand>
+          </wstxns13:operand>
         </wstxns13:expression>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
@@ -514,60 +594,21 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="2">
+                  <value r="228">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value>
+                        <value r="229">
                           <s>
-                            <s>AnyTrue</s>
-                            <s>(</s>
-                          </s>
-                        </value>
-                        <nil>false</nil>
-                        <globalScope>true</globalScope>
-                        <typeSubstituted>false</typeSubstituted>
-                      </s>
-                      <s>
-                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="228">
-                          <s>
-                            <s>
-                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                              <value r="1">
-                                <s>
-                                  <s>
-                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                                    <value>
-                                      <s>
-                                        <s>HIC</s>
-                                      </s>
-                                    </value>
-                                    <nil>false</nil>
-                                    <globalScope>true</globalScope>
-                                    <typeSubstituted>false</typeSubstituted>
-                                  </s>
-                                </s>
-                              </value>
-                              <nil>false</nil>
-                              <globalScope>true</globalScope>
-                              <typeSubstituted>false</typeSubstituted>
-                            </s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
                               <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                               <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                               <value>
                                 <s>
-                                  <s>.</s>
+                                  <s>exists</s>
                                 </s>
                               </value>
                               <nil>false</nil>
@@ -578,7 +619,7 @@
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
                               <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                               <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                              <value r="228">
+                              <value r="246">
                                 <s>
                                   <s>
                                     <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -586,7 +627,275 @@
                                     <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                                     <value>
                                       <s>
-                                        <s>"HIV Positive during measurement period"</s>
+                                        <s>(</s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value r="246">
+                                      <s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value>
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="230">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="231">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>HIC</s>
+                                                                      <s>.</s>
+                                                                      <s>"HIV Positive Condition"</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value>
+                                                        <s>
+                                                          <s> </s>
+                                                          <s>C</s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value>
+                                            <s>
+                                              <s>
+	</s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value r="235">
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value>
+                                                  <s>
+                                                    <s>where </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="235">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="233">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="232">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>C</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>.</s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="233">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>onset</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="235">
+                                                        <s>
+                                                          <s> </s>
+                                                          <s>during</s>
+                                                          <s> </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="234">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>"Measurement Period"</s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value>
+                                      <s>
+                                        <s>)</s>
                                       </s>
                                     </value>
                                     <nil>false</nil>
@@ -611,7 +920,569 @@
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                         <value>
                           <s>
-                            <s>)</s>
+                            <s>
+	or 
+	</s>
+                          </s>
+                        </value>
+                        <nil>false</nil>
+                        <globalScope>true</globalScope>
+                        <typeSubstituted>false</typeSubstituted>
+                      </s>
+                      <s>
+                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                        <value r="247">
+                          <s>
+                            <s>
+                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                              <value>
+                                <s>
+                                  <s>exists</s>
+                                </s>
+                              </value>
+                              <nil>false</nil>
+                              <globalScope>true</globalScope>
+                              <typeSubstituted>false</typeSubstituted>
+                            </s>
+                            <s>
+                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                              <value r="265">
+                                <s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value>
+                                      <s>
+                                        <s>(</s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value r="265">
+                                      <s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value>
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="248">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="249">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>HIC</s>
+                                                                      <s>.</s>
+                                                                      <s>"HIV Positive Observation"</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value>
+                                                        <s>
+                                                          <s> </s>
+                                                          <s>O</s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value>
+                                            <s>
+                                              <s>
+	</s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value r="250">
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value>
+                                                  <s>
+                                                    <s>where </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="250">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value>
+                                                        <s>
+                                                          <s>(</s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="250">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="255">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="252">
+                                                                    <s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="251">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>O</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value>
+                                                                          <s>
+                                                                            <s>.</s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="252">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>issued</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="255">
+                                                                    <s>
+                                                                      <s> </s>
+                                                                      <s>before</s>
+                                                                      <s> </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="253">
+                                                                    <s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value>
+                                                                          <s>
+                                                                            <s>end of </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="254">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>"Measurement Period"</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>
+	and </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="262">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="259">
+                                                                    <s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="258">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>O</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value>
+                                                                          <s>
+                                                                            <s>.</s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="259">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>issued</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="262">
+                                                                    <s>
+                                                                      <s> </s>
+                                                                      <s>after</s>
+                                                                      <s> </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value r="260">
+                                                                    <s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value>
+                                                                          <s>
+                                                                            <s>start of </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                      <s>
+                                                                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                        <value r="261">
+                                                                          <s>
+                                                                            <s>
+                                                                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                              <value>
+                                                                                <s>
+                                                                                  <s>"Measurement Period"</s>
+                                                                                </s>
+                                                                              </value>
+                                                                              <nil>false</nil>
+                                                                              <globalScope>true</globalScope>
+                                                                              <typeSubstituted>false</typeSubstituted>
+                                                                            </s>
+                                                                          </s>
+                                                                        </value>
+                                                                        <nil>false</nil>
+                                                                        <globalScope>true</globalScope>
+                                                                        <typeSubstituted>false</typeSubstituted>
+                                                                      </s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value>
+                                                        <s>
+                                                          <s>)</s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value>
+                                      <s>
+                                        <s>
+	)</s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                </s>
+                              </value>
+                              <nil>false</nil>
+                              <globalScope>true</globalScope>
+                              <typeSubstituted>false</typeSubstituted>
+                            </s>
                           </s>
                         </value>
                         <nil>false</nil>
@@ -629,13 +1500,51 @@
           </wstxns13:annotation>
         </wstxns13:annotation>
       </wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="232" locator="43:1-44:53" name="denominator" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="AnyTrue" localId="4" locator="44:5-44:53">
-          <wstxns13:source wstxns13:type="ExpressionRef" localId="233" locator="44:13-44:52" name="HIV test during measurement period" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="267" locator="49:1-52:50" name="denominator" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="Exists" localId="268" locator="50:5-52:50">
+          <wstxns13:operand wstxns13:type="Query" localId="286" locator="50:11-52:50">
+            <wstxns13:source>
+              <wstxns13:source wstxns13:type="AliasedQuerySource" localId="269" locator="50:12-50:36" alias="T">
+                <wstxns13:expression wstxns13:type="ExpressionRef" localId="270" locator="50:12-50:34" name="HIV test resulted" libraryName="HIC"/>
+              </wstxns13:source>
+            </wstxns13:source>
+            <wstxns13:where wstxns13:type="And" localId="271" locator="51:2-52:49">
+              <wstxns13:operand>
+                <wstxns13:operand wstxns13:type="Before" localId="276" locator="51:8-51:50">
+                  <wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="FunctionRef" localId="277" name="ToDateTime" libraryName="FHIRHelpers">
+                      <wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="Property" localId="273" locator="51:8-51:15" path="issued" scope="T"/>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="ToDateTime">
+                      <wstxns13:operand wstxns13:type="End" localId="274" locator="51:24-51:50">
+                        <wstxns13:operand wstxns13:type="ParameterRef" localId="275" locator="51:31-51:50" name="Measurement Period"/>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                  </wstxns13:operand>
+                </wstxns13:operand>
+                <wstxns13:operand wstxns13:type="After" localId="283" locator="52:6-52:49">
+                  <wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="FunctionRef" localId="284" name="ToDateTime" libraryName="FHIRHelpers">
+                      <wstxns13:operand>
+                        <wstxns13:operand wstxns13:type="Property" localId="280" locator="52:6-52:13" path="issued" scope="T"/>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                    <wstxns13:operand wstxns13:type="ToDateTime">
+                      <wstxns13:operand wstxns13:type="Start" localId="281" locator="52:21-52:49">
+                        <wstxns13:operand wstxns13:type="ParameterRef" localId="282" locator="52:30-52:49" name="Measurement Period"/>
+                      </wstxns13:operand>
+                    </wstxns13:operand>
+                  </wstxns13:operand>
+                </wstxns13:operand>
+              </wstxns13:operand>
+            </wstxns13:where>
+          </wstxns13:operand>
         </wstxns13:expression>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
-            <wstxns15:s xmlns:wstxns15="urn:hl7-org:cql-annotations:r1" r="232">
+            <wstxns15:s xmlns:wstxns15="urn:hl7-org:cql-annotations:r1" r="267">
               <s>
                 <s>
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -658,7 +1567,7 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="4">
+                  <value r="268">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -666,8 +1575,7 @@
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                         <value>
                           <s>
-                            <s>AnyTrue</s>
-                            <s>(</s>
+                            <s>exists</s>
                           </s>
                         </value>
                         <nil>false</nil>
@@ -678,13 +1586,26 @@
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="233">
+                        <value r="286">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
                               <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                               <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                              <value r="3">
+                              <value>
+                                <s>
+                                  <s>(</s>
+                                </s>
+                              </value>
+                              <nil>false</nil>
+                              <globalScope>true</globalScope>
+                              <typeSubstituted>false</typeSubstituted>
+                            </s>
+                            <s>
+                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                              <value r="286">
                                 <s>
                                   <s>
                                     <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -692,7 +1613,440 @@
                                     <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                                     <value>
                                       <s>
-                                        <s>HIC</s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value r="269">
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="270">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value>
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>HIC</s>
+                                                                <s>.</s>
+                                                                <s>"HIV test resulted"</s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value>
+                                                  <s>
+                                                    <s> </s>
+                                                    <s>T</s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value>
+                                      <s>
+                                        <s>
+	</s>
+                                      </s>
+                                    </value>
+                                    <nil>false</nil>
+                                    <globalScope>true</globalScope>
+                                    <typeSubstituted>false</typeSubstituted>
+                                  </s>
+                                  <s>
+                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                    <value r="271">
+                                      <s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value>
+                                            <s>
+                                              <s>where </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
+                                        <s>
+                                          <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                          <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                          <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                          <value r="271">
+                                            <s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="276">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="273">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="272">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>T</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>.</s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="273">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>issued</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="276">
+                                                        <s>
+                                                          <s> </s>
+                                                          <s>before</s>
+                                                          <s> </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="274">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>end of </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="275">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>"Measurement Period"</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value>
+                                                  <s>
+                                                    <s>
+	and </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                              <s>
+                                                <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                <value r="283">
+                                                  <s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="280">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="279">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>T</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>.</s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="280">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>issued</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="283">
+                                                        <s>
+                                                          <s> </s>
+                                                          <s>after</s>
+                                                          <s> </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                    <s>
+                                                      <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                      <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                      <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                      <value r="281">
+                                                        <s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value>
+                                                              <s>
+                                                                <s>start of </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                          <s>
+                                                            <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                            <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                            <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                            <value r="282">
+                                                              <s>
+                                                                <s>
+                                                                  <name>{urn:hl7-org:cql-annotations:r1}s</name>
+                                                                  <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
+                                                                  <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
+                                                                  <value>
+                                                                    <s>
+                                                                      <s>"Measurement Period"</s>
+                                                                    </s>
+                                                                  </value>
+                                                                  <nil>false</nil>
+                                                                  <globalScope>true</globalScope>
+                                                                  <typeSubstituted>false</typeSubstituted>
+                                                                </s>
+                                                              </s>
+                                                            </value>
+                                                            <nil>false</nil>
+                                                            <globalScope>true</globalScope>
+                                                            <typeSubstituted>false</typeSubstituted>
+                                                          </s>
+                                                        </s>
+                                                      </value>
+                                                      <nil>false</nil>
+                                                      <globalScope>true</globalScope>
+                                                      <typeSubstituted>false</typeSubstituted>
+                                                    </s>
+                                                  </s>
+                                                </value>
+                                                <nil>false</nil>
+                                                <globalScope>true</globalScope>
+                                                <typeSubstituted>false</typeSubstituted>
+                                              </s>
+                                            </s>
+                                          </value>
+                                          <nil>false</nil>
+                                          <globalScope>true</globalScope>
+                                          <typeSubstituted>false</typeSubstituted>
+                                        </s>
                                       </s>
                                     </value>
                                     <nil>false</nil>
@@ -711,51 +2065,13 @@
                               <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
                               <value>
                                 <s>
-                                  <s>.</s>
+                                  <s>)</s>
                                 </s>
                               </value>
                               <nil>false</nil>
                               <globalScope>true</globalScope>
                               <typeSubstituted>false</typeSubstituted>
                             </s>
-                            <s>
-                              <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                              <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                              <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                              <value r="233">
-                                <s>
-                                  <s>
-                                    <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                                    <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                                    <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                                    <value>
-                                      <s>
-                                        <s>"HIV test during measurement period"</s>
-                                      </s>
-                                    </value>
-                                    <nil>false</nil>
-                                    <globalScope>true</globalScope>
-                                    <typeSubstituted>false</typeSubstituted>
-                                  </s>
-                                </s>
-                              </value>
-                              <nil>false</nil>
-                              <globalScope>true</globalScope>
-                              <typeSubstituted>false</typeSubstituted>
-                            </s>
-                          </s>
-                        </value>
-                        <nil>false</nil>
-                        <globalScope>true</globalScope>
-                        <typeSubstituted>false</typeSubstituted>
-                      </s>
-                      <s>
-                        <name>{urn:hl7-org:cql-annotations:r1}s</name>
-                        <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
-                        <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value>
-                          <s>
-                            <s>)</s>
                           </s>
                         </value>
                         <nil>false</nil>
@@ -773,11 +2089,11 @@
           </wstxns13:annotation>
         </wstxns13:annotation>
       </wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="237" locator="50:1-51:42" name="Administrative Gender Stratifier" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="ExpressionRef" localId="238" locator="51:2-51:42" name="By Administrative Gender Stratifier" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="288" locator="58:1-59:42" name="Administrative Gender Stratifier" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="ExpressionRef" localId="289" locator="59:2-59:42" name="By Administrative Gender Stratifier" libraryName="HIC"/>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
-            <wstxns16:s xmlns:wstxns16="urn:hl7-org:cql-annotations:r1" r="237">
+            <wstxns16:s xmlns:wstxns16="urn:hl7-org:cql-annotations:r1" r="288">
               <s>
                 <s>
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -804,13 +2120,13 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="238">
+                  <value r="289">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="5">
+                        <value r="1">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -848,7 +2164,7 @@
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="238">
+                        <value r="289">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -880,11 +2196,11 @@
           </wstxns13:annotation>
         </wstxns13:annotation>
       </wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="240" locator="53:1-54:24" name="Age Stratifier" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="ExpressionRef" localId="241" locator="54:2-54:24" name="By Age Stratifier" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="291" locator="61:1-62:24" name="Age Stratifier" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="ExpressionRef" localId="292" locator="62:2-62:24" name="By Age Stratifier" libraryName="HIC"/>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
-            <wstxns17:s xmlns:wstxns17="urn:hl7-org:cql-annotations:r1" r="240">
+            <wstxns17:s xmlns:wstxns17="urn:hl7-org:cql-annotations:r1" r="291">
               <s>
                 <s>
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -907,13 +2223,13 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="241">
+                  <value r="292">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="6">
+                        <value r="2">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -951,7 +2267,7 @@
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="241">
+                        <value r="292">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -983,11 +2299,11 @@
           </wstxns13:annotation>
         </wstxns13:annotation>
       </wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="243" locator="56:1-57:38" name="Geographic Region Stratifier" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="ExpressionRef" localId="244" locator="57:2-57:38" name="By Geographic Region Stratifier" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="294" locator="64:1-65:38" name="Geographic Region Stratifier" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="ExpressionRef" localId="295" locator="65:2-65:38" name="By Geographic Region Stratifier" libraryName="HIC"/>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
-            <wstxns18:s xmlns:wstxns18="urn:hl7-org:cql-annotations:r1" r="243">
+            <wstxns18:s xmlns:wstxns18="urn:hl7-org:cql-annotations:r1" r="294">
               <s>
                 <s>
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1010,13 +2326,13 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="244">
+                  <value r="295">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="7">
+                        <value r="3">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1054,7 +2370,7 @@
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="244">
+                        <value r="295">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1086,11 +2402,11 @@
           </wstxns13:annotation>
         </wstxns13:annotation>
       </wstxns13:def>
-      <wstxns13:def wstxns13:type="ExpressionDef" localId="246" locator="59:1-60:22" name="patientGroups Stratifier" context="Unfiltered" accessLevel="Public">
-        <wstxns13:expression wstxns13:type="ExpressionRef" localId="247" locator="60:2-60:22" name="patientGroups_3" libraryName="HIC"/>
+      <wstxns13:def wstxns13:type="ExpressionDef" localId="297" locator="67:1-68:22" name="patientGroups Stratifier" context="Unfiltered" accessLevel="Public">
+        <wstxns13:expression wstxns13:type="ExpressionRef" localId="298" locator="68:2-68:22" name="patientGroups_3" libraryName="HIC"/>
         <wstxns13:annotation>
           <wstxns13:annotation wstxns13:type="Annotation">
-            <wstxns19:s xmlns:wstxns19="urn:hl7-org:cql-annotations:r1" r="246">
+            <wstxns19:s xmlns:wstxns19="urn:hl7-org:cql-annotations:r1" r="297">
               <s>
                 <s>
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1113,13 +2429,13 @@
                   <name>{urn:hl7-org:cql-annotations:r1}s</name>
                   <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                   <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                  <value r="247">
+                  <value r="298">
                     <s>
                       <s>
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="8">
+                        <value r="4">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1157,7 +2473,7 @@
                         <name>{urn:hl7-org:cql-annotations:r1}s</name>
                         <declaredType>org.hl7.cql_annotations.r1.Narrative</declaredType>
                         <scope>jakarta.xml.bind.JAXBElement$GlobalScope</scope>
-                        <value r="247">
+                        <value r="298">
                           <s>
                             <s>
                               <name>{urn:hl7-org:cql-annotations:r1}s</name>
@@ -1193,8 +2509,13 @@
   </wstxns13:statements>
   <wstxns20:annotation xmlns:wstxns20="urn:hl7-org:elm:r1">
     <wstxns20:annotation wstxns20:type="CqlToElmInfo" translatorVersion="3.6.0" translatorOptions="EnableAnnotations,EnableLocators,DisableListDemotion,DisableListPromotion" signatureLevel="None"/>
+    <wstxns20:annotation wstxns20:type="CqlToElmError" message="The function FHIRHelpers.ToInterval has multiple overloads and due to the SignatureLevel setting (None), the overload signature is not being included in the output. This may result in ambiguous function resolution at runtime, consider setting the SignatureLevel to Overloads or All to ensure that the output includes sufficient information to support correct overload selection at runtime." errorType="semantic" errorSeverity="warning"/>
+    <wstxns20:annotation wstxns20:type="CqlToElmError" message="The function FHIRHelpers.ToDateTime has multiple overloads and due to the SignatureLevel setting (None), the overload signature is not being included in the output. This may result in ambiguous function resolution at runtime, consider setting the SignatureLevel to Overloads or All to ensure that the output includes sufficient information to support correct overload selection at runtime." errorType="semantic" errorSeverity="warning"/>
+    <wstxns20:annotation wstxns20:type="CqlToElmError" message="The function FHIRHelpers.ToDateTime has multiple overloads and due to the SignatureLevel setting (None), the overload signature is not being included in the output. This may result in ambiguous function resolution at runtime, consider setting the SignatureLevel to Overloads or All to ensure that the output includes sufficient information to support correct overload selection at runtime." errorType="semantic" errorSeverity="warning"/>
+    <wstxns20:annotation wstxns20:type="CqlToElmError" message="The function FHIRHelpers.ToDateTime has multiple overloads and due to the SignatureLevel setting (None), the overload signature is not being included in the output. This may result in ambiguous function resolution at runtime, consider setting the SignatureLevel to Overloads or All to ensure that the output includes sufficient information to support correct overload selection at runtime." errorType="semantic" errorSeverity="warning"/>
+    <wstxns20:annotation wstxns20:type="CqlToElmError" message="The function FHIRHelpers.ToDateTime has multiple overloads and due to the SignatureLevel setting (None), the overload signature is not being included in the output. This may result in ambiguous function resolution at runtime, consider setting the SignatureLevel to Overloads or All to ensure that the output includes sufficient information to support correct overload selection at runtime." errorType="semantic" errorSeverity="warning"/>
     <wstxns20:annotation wstxns20:type="Annotation">
-      <wstxns21:s xmlns:wstxns21="urn:hl7-org:cql-annotations:r1" r="246">
+      <wstxns21:s xmlns:wstxns21="urn:hl7-org:cql-annotations:r1" r="297">
         <s>
           <s>
             <name>{urn:hl7-org:cql-annotations:r1}s</name>
